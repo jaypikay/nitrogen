@@ -31,6 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "gcs-i18n.h"
 #include "string.h"
 
+#define ICON_WIDTH      300
+#define ICON_HEIGHT     300
+#define THUMB_WIDTH     280
+#define THUMB_HEIGHT    280
+
 typedef std::pair<Glib::ustring, Glib::ustring> PairStrs;
 
 /**
@@ -121,7 +126,7 @@ Thumbview::Thumbview()
 	rend.set_property ("ellipsize", Pango::ELLIPSIZE_END);
 	rend.property_weight () = Pango::WEIGHT_BOLD;
 
-	rend_img.set_fixed_size(105, 82);    
+	rend_img.set_fixed_size(ICON_WIDTH, ICON_HEIGHT);    
 	
 	// make treeviewcolumns
 	this->col_thumb = new Gtk::TreeViewColumn("thumbnail", this->rend_img);
@@ -536,7 +541,7 @@ void Thumbview::create_cache_images()
 
 		// open image, scale to smallish 4:3 with aspect preserved
 		try {
-			thumb = Gdk::Pixbuf::create_from_file(file, 100, 75, true);
+			thumb = Gdk::Pixbuf::create_from_file(file, THUMB_WIDTH, THUMB_HEIGHT, true);
 		} catch (...) {
 			// forget it, move on
 			delete p;
